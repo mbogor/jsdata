@@ -22,3 +22,10 @@ var schema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Post', schema);
+
+
+// SYNC	ASYNC
+// get()	find()
+// filter()	findAll()
+// inject()	create(), update(), updateAll()
+// eject(), ejectAll()	destroy(), destroyAll()
