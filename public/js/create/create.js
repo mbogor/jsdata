@@ -1,24 +1,46 @@
 'use strict'; 
 
-app.config(function($stateProvider) {
+app.config(function($stateProvider) { //no factories or services
 	$stateProvider.state('create', {
 		url: '/create/:userId',
 		templateUrl: 'js/create/create.html',
-		controller: 'CreateCtrl' 
+		controller: 'CreateCtrl',
+		resolve: {
+			
+			author: function($stateParams, User){
+				
+				return User.find($stateParams.userId)
+
+				// console.log("you are here, here's the id ", $stateParams.userId)}
+
+			}
 		/*
 				add a resolve block that has an author function which 
 				users $stateParams to retrieve the author object
 		*/
+		}
 	})
 })
 
 // add necessary dependencies here 
-app.controller('CreateCtrl', function($scope) {
+app.controller('CreateCtrl', function($scope, Post, $state, author) {
 
 	$scope.previewTrue = false;
 
 	$scope.preview = function() {
 		$scope.previewTrue = !$scope.previewTrue;
+	}
+
+	$scope.createNewPost = function(){
+		console.log("new post ",$scope.newPost)
+		$scope.newPost.author = author._id// whatever variable we created to capture id in the state
+		//newPost object will now have an id property
+		Post.create($scope.newPost)
+      .then(function(article){
+        console.log("article ", article)
+        $state.go('main')
+      }).catch(console.error)
+    
 	}
 
 	/*

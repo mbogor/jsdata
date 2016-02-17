@@ -50,6 +50,7 @@ app.controller('MainController', function($scope, posts, Post, User, users) {
 	var dataInJsDataCache = {postData, userData}
 	console.log("CACHE ", dataInJsDataCache)
 
+
 	// // Post.ejectAll() // removes all the posts from the data store
 	// Post.inject(postData)  // adds them back
 	// console.log(Post.getAll())

@@ -5,22 +5,26 @@ app.config(function($stateProvider) {
 	$stateProvider.state('signup', {
 		url: '/signup',
 		templateUrl: 'js/signup/signup.html',
-		controller: 'SignupCtrl',
+		controller: 'SignupCtrl'
 
 	})
 })
 
 // add necessary dependencies here
-app.controller('SignupCtrl', function($scope, User) {
+app.controller('SignupCtrl', function($scope, User, $state) {
       
-    function $scope.sendSignup(){
+    $scope.sendSignup = function(input){
+      console.log("info from form ", input)
 
-      console.log("username ", $scope.signup.username)
-      var input = {username: $scope.signup.username, password: $scope.signup.password}
+      // console.log("username ", $scope.signup.username)
+
+      // var input = {username: $scope.signup.username, password: $scope.signup.password}
+
       User.create(input)
       .then(function(created){
         console.log("CREATED ", created)
-      })
+        $state.go('create', { userId: created._id})
+      }).catch(console.error)
     }
   /*
   TODOS: 
